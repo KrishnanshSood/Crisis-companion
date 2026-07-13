@@ -1,0 +1,72 @@
+{
+  "suicidal_ideation": {
+    "phrases": [
+      "\"It sounds like the pain has become bigger than what you feel able to carry. I'm really glad you reached out and I'm staying right here with you.\"",
+      "\"I want to make sure I understand — are you having thoughts of suicide?\" (asking directly and calmly is recommended practice; it does not plant the idea)",
+      "\"You've survived every one of your hardest days so far, even when it didn't feel possible. Can we stay with what's happening right now, together?\"",
+      "\"Is there anything nearby you could use to hurt yourself? Would you be willing to put some distance between you and it while we talk?\"",
+      "\"We don't have to solve everything tonight. Right now it's just you and me talking, one minute at a time.\""
+    ],
+    "safety_note": "Ask directly about suicidal thoughts, plan, means, and timeline. If there is imminent risk, follow your organisation's escalation protocol immediately — do not handle it alone."
+  },
+  "self_harm": {
+    "phrases": [
+      "\"Thank you for trusting me with this — it takes courage to say it out loud.\"",
+      "\"It sounds like hurting yourself has been a way to cope with something that feels unbearable. What does it help you get through?\"",
+      "\"You don't have to have stopped to deserve support. I'm not here to judge you.\"",
+      "\"Do you have any injuries right now that need medical attention?\"",
+      "\"Would you be open to trying one small thing together right now — holding ice, or a cold shower — just to get through this wave?\""
+    ],
+    "safety_note": "Check for injuries needing medical care first. Explore the function of the self-harm without judgment before discussing alternatives."
+  },
+  "domestic_violence": {
+    "phrases": [
+      "\"I believe you. What's happening to you is not your fault.\"",
+      "\"Are you somewhere safe to talk right now? We can use short answers, or stop any time you need to.\"",
+      "\"You know your situation and your safety better than anyone. I'm here to support your decisions, not make them for you.\"",
+      "\"Would it help to think through a safety plan together — somewhere to go, things to keep ready, a code word with someone you trust?\"",
+      "\"Whatever you decide tonight, reaching out was a strong and brave step.\""
+    ],
+    "safety_note": "Prioritise the caller's immediate physical safety and confidentiality. Never push them to leave; leaving is statistically the most dangerous moment. Follow your organisation's DV referral protocol."
+  },
+  "substance_use": {
+    "phrases": [
+      "\"Thank you for being honest with me about this — that's not easy.\"",
+      "\"A relapse doesn't erase the progress you made. It's one moment in a longer story.\"",
+      "\"How much have you taken tonight? I'm asking because I care about your safety right now, not to judge you.\"",
+      "\"What has helped you get through cravings before, even once?\"",
+      "\"Is there someone who could be with you tonight while this passes?\""
+    ],
+    "safety_note": "Screen for overdose risk first (what, how much, when, mixed with what). If overdose is possible, follow your medical-emergency escalation protocol immediately."
+  },
+  "panic_anxiety": {
+    "phrases": [
+      "\"What you're feeling is your body's alarm system — it's terrifying, but it is not dangerous, and it will pass.\"",
+      "\"Let's slow things down together. Can you breathe out slowly with me — a long, slow breath out first?\"",
+      "\"Can you name five things you can see around you right now? Just the first ones you notice.\"",
+      "\"You're not going crazy and you're not alone. I'm right here and we'll ride this wave out together.\"",
+      "\"Panic peaks and then falls — it can't keep climbing forever. We only need to get through the next few minutes.\""
+    ],
+    "safety_note": "Grounding before problem-solving. Keep your own messages short, slow, and steady — pace is the intervention."
+  },
+  "grief_loss": {
+    "phrases": [
+      "\"I'm so sorry. There are no right words for a loss like this, and you don't have to find any either.\"",
+      "\"Whatever you're feeling right now — numbness, anger, guilt, nothing at all — it's a normal shape for grief to take.\"",
+      "\"Would you like to tell me about them?\"",
+      "\"Grief isn't something to get over — it's something we learn to carry. And tonight you don't have to carry it alone.\"",
+      "\"There's no timetable for this. However long it's been, your feelings are allowed.\""
+    ],
+    "safety_note": "Don't rush toward silver linings. Presence and witness matter more than advice. Screen gently for suicidal thoughts if hopelessness appears."
+  },
+  "general_distress": {
+    "phrases": [
+      "\"That sounds incredibly heavy. I'm glad you reached out tonight.\"",
+      "\"Take whatever time you need — I'm not going anywhere.\"",
+      "\"Of everything you're carrying right now, what feels most pressing tonight?\"",
+      "\"You don't have to have the right words. Whatever comes out is okay.\"",
+      "\"It makes sense that you feel this way, given everything you've described.\""
+    ],
+    "safety_note": "Open questions and reflective listening until the core concern surfaces, then reassess crisis type."
+  }
+}

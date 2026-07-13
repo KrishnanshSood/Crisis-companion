@@ -1,0 +1,55 @@
+{
+  "display_information": {
+    "name": "Crisis Companion",
+    "description": "Ambient support for crisis-line volunteers: vetted de-escalation phrases, similar past cases, live resources.",
+    "long_description": "Crisis Companion supports volunteer counselors on text-based crisis lines. When a volunteer debriefs a difficult session or asks for help mid-shift, the agent classifies the crisis type with a deterministic, vetted lexicon (no generative AI in the loop, zero hallucination by construction), surfaces similar past cases from the organisation's own anonymised debrief history via Slack's Real-time Search API, and fetches curated helplines and protocols through an MCP server. Every response carries a strict privacy pipeline: PII is scrubbed before any query leaves the thread, search is restricted to an allow-list of anonymised channels, and nothing is stored.",
+    "background_color": "#1a2a3a"
+  },
+  "features": {
+    "app_home": {
+      "home_tab_enabled": true,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
+    },
+    "bot_user": {
+      "display_name": "Crisis Companion",
+      "always_online": true
+    },
+    "assistant_view": {
+      "assistant_description": "Real-time support for crisis-line volunteers: suggested phrasing, similar past cases, and vetted resources."
+    }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "assistant:write",
+        "chat:write",
+        "im:history",
+        "app_mentions:read",
+        "channels:history",
+        "channels:read",
+        "channels:join",
+        "search:read.public",
+        "search:read.files",
+        "search:read.users"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "bot_events": [
+        "app_home_opened",
+        "app_mention",
+        "assistant_thread_started",
+        "assistant_thread_context_changed",
+        "message.im"
+      ]
+    },
+    "interactivity": {
+      "is_enabled": true
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}

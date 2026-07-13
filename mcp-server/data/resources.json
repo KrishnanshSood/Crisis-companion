@@ -1,0 +1,152 @@
+{
+  "helplines": {
+    "IN": {
+      "any": [
+        { "name": "KIRAN Mental Health Helpline", "contact": "1800-599-0019", "hours": "24x7" },
+        { "name": "AASRA", "contact": "+91-9820466726", "hours": "24x7" },
+        { "name": "Vandrevala Foundation", "contact": "1860-2662-345", "hours": "24x7" },
+        { "name": "iCall (TISS)", "contact": "+91-9152987821", "hours": "Mon–Sat 10:00–20:00" }
+      ],
+      "domestic_violence": [
+        { "name": "Women Helpline (All India)", "contact": "181", "hours": "24x7" },
+        { "name": "National Commission for Women", "contact": "+91-7827170170", "hours": "24x7" },
+        { "name": "Emergency (Police)", "contact": "112", "hours": "24x7" }
+      ]
+    },
+    "US": {
+      "any": [
+        { "name": "988 Suicide & Crisis Lifeline", "contact": "call or text 988", "hours": "24/7" },
+        { "name": "Crisis Text Line", "contact": "text HOME to 741741", "hours": "24/7" }
+      ],
+      "domestic_violence": [
+        { "name": "National Domestic Violence Hotline", "contact": "1-800-799-7233", "hours": "24/7" }
+      ],
+      "substance_use": [
+        { "name": "SAMHSA National Helpline", "contact": "1-800-662-4357", "hours": "24/7" }
+      ]
+    },
+    "GB": {
+      "any": [
+        { "name": "Samaritans", "contact": "116 123", "hours": "24/7" },
+        { "name": "Shout", "contact": "text SHOUT to 85258", "hours": "24/7" }
+      ],
+      "domestic_violence": [
+        { "name": "National Domestic Abuse Helpline", "contact": "0808 2000 247", "hours": "24/7" }
+      ],
+      "substance_use": [
+        { "name": "FRANK", "contact": "0300 123 6600", "hours": "24/7" }
+      ]
+    },
+    "AU": {
+      "any": [
+        { "name": "Lifeline Australia", "contact": "13 11 14", "hours": "24/7" },
+        { "name": "Beyond Blue", "contact": "1300 22 4636", "hours": "24/7" }
+      ],
+      "domestic_violence": [
+        { "name": "1800RESPECT", "contact": "1800 737 732", "hours": "24/7" }
+      ]
+    },
+    "CA": {
+      "any": [
+        { "name": "988 Suicide Crisis Helpline (Canada)", "contact": "call or text 988", "hours": "24/7" }
+      ]
+    },
+    "NZ": {
+      "any": [
+        { "name": "1737 Need to Talk?", "contact": "call or text 1737", "hours": "24/7" },
+        { "name": "Lifeline Aotearoa", "contact": "0800 543 354", "hours": "24/7" }
+      ]
+    },
+    "IE": {
+      "any": [
+        { "name": "Samaritans Ireland", "contact": "116 123", "hours": "24/7" },
+        { "name": "Pieta", "contact": "1800 247 247", "hours": "24/7" }
+      ]
+    },
+    "ZA": {
+      "any": [
+        { "name": "SADAG Suicide Crisis Helpline", "contact": "0800 567 567", "hours": "24/7" },
+        { "name": "LifeLine South Africa", "contact": "0861 322 322", "hours": "24/7" }
+      ]
+    },
+    "INTL": {
+      "any": [
+        { "name": "Find a Helpline (directory)", "contact": "findahelpline.com", "hours": "always" },
+        { "name": "Befrienders Worldwide (directory)", "contact": "befrienders.org", "hours": "always" }
+      ]
+    }
+  },
+  "protocols": {
+    "suicidal_ideation": {
+      "title": "Suicidal ideation response",
+      "steps": [
+        "Ask directly and calmly about suicidal thoughts — plain language, no euphemisms.",
+        "Assess plan, means, and timeline; imminence changes everything.",
+        "Collaboratively increase distance from means (\"would you be willing to…\").",
+        "Co-create one concrete safety step for tonight, however small.",
+        "If risk is imminent, escalate per your organisation's protocol — never carry it alone.",
+        "Debrief with your team afterwards; log per your documentation policy."
+      ]
+    },
+    "self_harm": {
+      "title": "Self-harm response",
+      "steps": [
+        "Screen for injuries needing medical attention right now.",
+        "Validate without judgment; self-harm is a coping strategy, not attention-seeking.",
+        "Explore what the self-harm helps them get through.",
+        "Offer harm-reduction and delay techniques for this wave only.",
+        "Gently screen for suicidal intent — related but distinct."
+      ]
+    },
+    "domestic_violence": {
+      "title": "Domestic violence response",
+      "steps": [
+        "Confirm they are safe to talk right now; agree on short answers or a stop signal.",
+        "Believe and validate explicitly; never question their account.",
+        "Support their autonomy — do not push them to leave; leaving is the highest-risk moment.",
+        "Offer to build a safety plan: documents, money, a place to go, a code word.",
+        "Share specialised DV referral resources; confirm it is safe for them to keep them."
+      ]
+    },
+    "substance_use": {
+      "title": "Substance use response",
+      "steps": [
+        "Screen for overdose risk first: what, how much, when, mixed with what.",
+        "If overdose is possible, escalate to emergency services per protocol immediately.",
+        "Stay nonjudgmental — shame drives disconnection.",
+        "Anchor on the immediate: who can be with them tonight, what has helped before.",
+        "Offer specialised referral for follow-up support."
+      ]
+    },
+    "panic_anxiety": {
+      "title": "Panic / acute anxiety response",
+      "steps": [
+        "Grounding before problem-solving: 5-4-3-2-1 senses, feet on floor.",
+        "Guide slow breathing, emphasising the long exhale.",
+        "Keep your messages short, slow, and steady — your pace is the intervention.",
+        "Name the pattern: panic peaks and passes; the goal is the next few minutes.",
+        "Once settled, gently explore triggers and next-step support."
+      ]
+    },
+    "grief_loss": {
+      "title": "Grief and loss response",
+      "steps": [
+        "Presence over solutions; do not rush toward silver linings.",
+        "Invite, never require: \"Would you like to tell me about them?\"",
+        "Normalise the full range — numbness, anger, guilt, relief.",
+        "Watch for hopelessness bleeding into suicidal thinking; screen gently.",
+        "Offer continuing support options before closing."
+      ]
+    },
+    "general_distress": {
+      "title": "General distress response",
+      "steps": [
+        "Open questions and reflective listening until the core concern surfaces.",
+        "Validate the feeling before addressing any facts.",
+        "Re-classify as the situation clarifies; protocols can change mid-conversation.",
+        "Close with one concrete, self-chosen next step."
+      ]
+    }
+  },
+  "notice": "Curated directory of publicly listed helplines. Volunteers should verify numbers against current local directories before sharing."
+}

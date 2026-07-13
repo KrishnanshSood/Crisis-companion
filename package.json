@@ -1,0 +1,23 @@
+{
+  "name": "crisis-companion",
+  "version": "1.0.0",
+  "description": "Ambient support agent for crisis-helpline volunteers: vetted de-escalation guidance, institutional memory via Slack real-time search, curated resources via MCP.",
+  "type": "module",
+  "main": "app/app.js",
+  "scripts": {
+    "start": "node app/app.js",
+    "seed": "node scripts/seed.js",
+    "mcp": "node mcp-server/server.js",
+    "check": "node --check app/app.js && node --check mcp-server/server.js && node --check scripts/seed.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@slack/bolt": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.24.1"
+  }
+}
