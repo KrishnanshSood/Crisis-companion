@@ -10,6 +10,9 @@ function allowedChannelIds() {
 }
 
 function channelIdOf(msg) {
+  // File results carry a `channels` array; only trust it when unambiguous
+  // (one channel) so allow-list enforcement stays fail-closed.
+  if (Array.isArray(msg?.channels) && msg.channels.length === 1) return msg.channels[0];
   return msg?.channel?.id ?? msg?.channel_id ?? msg?.channel ?? null;
 }
 
@@ -45,20 +48,23 @@ export async function findSimilarCases(client, { query, actionToken, limit = 3 }
       query,
       action_token: actionToken,
       channel_types: 'public_channel',
-      content_types: 'messages',
+      content_types: 'messages,files',
       limit: 20
     });
 
-    const messages = resp?.results?.messages ?? resp?.messages ?? [];
+    const results = resp?.results ?? resp ?? {};
+    const messages = (results.messages ?? []).map((m) => ({ ...m, kind: 'message' }));
+    const files = (results.files ?? []).map((f) => ({ ...f, kind: 'file' }));
     const allowList = allowedChannelIds();
-    const cases = messages
+
+    const cases = [...messages, ...files]
       .filter((m) => allowList.length === 0 || allowList.includes(channelIdOf(m)))
-      .filter((m) => m?.permalink && (m?.content || m?.text))
+      .filter((m) => m?.permalink && (m?.content || m?.text || m?.title || m?.name))
       .slice(0, limit)
       .map((m, i) => {
-        const raw = stripSlackMarkup(m.content ?? m.text ?? '').replace(/\s+/g, ' ').trim();
+        const raw = stripSlackMarkup(m.content ?? m.text ?? m.title ?? m.name ?? '').replace(/\s+/g, ' ').trim();
         return {
-          title: `Past case ${i + 1}`,
+          title: m.kind === 'file' ? `Training material ${i + 1}` : `Past case ${i + 1}`,
           snippet: raw.length > 160 ? `${raw.slice(0, 157)}…` : raw,
           permalink: m.permalink
         };

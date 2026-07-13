@@ -11,7 +11,8 @@ import { classify } from './classifier.js';
 import { scrub } from './scrub.js';
 import { findSimilarCases } from './search.js';
 import { findHelplines, getProtocol } from './mcp-client.js';
-import { recordSession } from './stats.js';
+import { recordSession, recordEscalation } from './stats.js';
+import { postEscalationAlert } from './escalation.js';
 import { buildSupportReply } from '../blocks/response.js';
 
 const PHRASES = JSON.parse(
@@ -40,7 +41,7 @@ export function extractActionToken(event) {
   return event?.assistant_thread?.action_token ?? event?.action_token ?? null;
 }
 
-export async function runPipeline({ client, text, actionToken, userId }) {
+export async function runPipeline({ client, text, actionToken, userId, sourceChannel, sourceTs }) {
   const { scrubbed, redactions } = scrub(text ?? '');
   const classification = classify(scrubbed);
   const country = detectCountry(scrubbed) ?? process.env.DEFAULT_COUNTRY ?? 'IN';
@@ -54,6 +55,26 @@ export async function runPipeline({ client, text, actionToken, userId }) {
 
   recordSession(userId, classification.type);
 
+  let autoEscalated = false;
+  if (classification.intensity === 'high' && userId) {
+    const isDm = sourceChannel?.startsWith('D');
+    const where = isDm ? 'via a direct message' : sourceChannel ? `in <#${sourceChannel}>` : 'in this session';
+    let joinUrl = null;
+    if (!isDm && sourceChannel && sourceTs) {
+      joinUrl = await client.chat
+        .getPermalink({ channel: sourceChannel, message_ts: sourceTs })
+        .then((r) => r.permalink)
+        .catch(() => null);
+    }
+    autoEscalated = await postEscalationAlert(client, {
+      label: classification.label,
+      intensity: classification.intensity,
+      context: `Auto-detected as time-critical — no click needed. <@${userId}> is handling this ${where}.`,
+      joinUrl
+    }).catch(() => false);
+    if (autoEscalated) recordEscalation(userId);
+  }
+
   const blocks = buildSupportReply({
     classification,
     phrases: PHRASES[classification.type] ?? PHRASES.general_distress,
@@ -61,7 +82,8 @@ export async function runPipeline({ client, text, actionToken, userId }) {
     helplines,
     similarCases: search.cases,
     redactions,
-    searchNote: search.note
+    searchNote: search.note,
+    autoEscalated
   });
 
   return {

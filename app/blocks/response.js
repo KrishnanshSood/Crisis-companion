@@ -9,7 +9,7 @@ const INTENSITY = {
   standard: { label: 'standard', emoji: '🟢' }
 };
 
-export function buildSupportReply({ classification, phrases, protocol, helplines, similarCases, redactions, searchNote }) {
+export function buildSupportReply({ classification, phrases, protocol, helplines, similarCases, redactions, searchNote, autoEscalated }) {
   const intensity = INTENSITY[classification.intensity] ?? INTENSITY.standard;
   const blocks = [];
 
@@ -20,6 +20,16 @@ export function buildSupportReply({ classification, phrases, protocol, helplines
       text: `${classification.emoji} *${classification.label}*  ·  ${intensity.emoji} ${intensity.label}`
     }
   });
+
+  if (autoEscalated) {
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: ":rotating_light: *Supervisor notified automatically* — this looked time-critical, so I've already alerted crisis-resources. No need to click Escalate too, but you still can for direct confirmation."
+      }
+    });
+  }
 
   if (classification.intensity === 'high' && phrases?.safety_note) {
     blocks.push({

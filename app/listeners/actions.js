@@ -4,10 +4,7 @@
 // suggestion into an actual human handoff.
 
 import { recordFeedback, recordEscalation } from '../lib/stats.js';
-
-function escalationChannel() {
-  return process.env.ESCALATION_CHANNEL_ID || (process.env.ALLOWED_CHANNEL_IDS ?? '').split(',')[0]?.trim() || null;
-}
+import { postEscalationAlert } from '../lib/escalation.js';
 
 async function replaceFeedbackBlock(client, body, note) {
   const blocks = (body.message?.blocks ?? []).filter((b) => b.block_id !== 'cc_feedback');
@@ -40,30 +37,18 @@ export function registerActions(app) {
     await ack();
     recordEscalation(body.user.id);
     const info = JSON.parse(body.actions[0].value ?? '{}');
-    const channel = escalationChannel();
 
-    if (channel) {
-      try {
-        const { permalink } = await client.chat.getPermalink({ channel: body.channel.id, message_ts: body.message.ts });
-        await client.chat.postMessage({
-          channel,
-          text: `🚨 Escalation requested — ${info.label ?? 'crisis'} (${info.intensity ?? 'standard'} intensity). <@${body.user.id}> needs a supervisor now.`,
-          blocks: [
-            {
-              type: 'section',
-              text: {
-                type: 'mrkdwn',
-                text: `🚨 *Escalation requested* — ${info.label ?? 'Crisis'} · ${info.intensity ?? 'standard'} intensity\n<@${body.user.id}> needs a supervisor now.`
-              }
-            },
-            { type: 'actions', elements: [{ type: 'button', text: { type: 'plain_text', text: 'Join thread' }, url: permalink, style: 'primary' }] }
-          ]
-        });
-      } catch (err) {
-        logger.error('escalation post failed', err);
-      }
-    } else {
-      logger.error('escalate fired with no ESCALATION_CHANNEL_ID or ALLOWED_CHANNEL_IDS configured');
+    try {
+      const { permalink } = await client.chat.getPermalink({ channel: body.channel.id, message_ts: body.message.ts });
+      const posted = await postEscalationAlert(client, {
+        label: info.label,
+        intensity: info.intensity,
+        context: `<@${body.user.id}> needs a supervisor now.`,
+        joinUrl: permalink
+      });
+      if (!posted) logger.error('escalate fired with no ESCALATION_CHANNEL_ID or ALLOWED_CHANNEL_IDS configured');
+    } catch (err) {
+      logger.error('escalation post failed', err);
     }
 
     try {

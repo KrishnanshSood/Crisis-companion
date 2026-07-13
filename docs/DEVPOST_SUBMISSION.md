@@ -15,11 +15,11 @@ Text-based crisis lines run on volunteers, and volunteers freeze. The knowledge 
 Crisis Companion lives in a helpline team's Slack. When a volunteer @mentions it with a debrief in an approved channel, or messages it in its private assistant thread mid-session, it:
 1. **Scrubs PII** (names, phones, emails, ages, IDs) before anything leaves the thread.
 2. **Classifies** the crisis type (suicidal ideation, self-harm, domestic violence, substance use, panic, grief) and intensity with a deterministic lexicon — no generative model in the loop, zero hallucination by construction.
-3. **Searches the team's own anonymised debrief history** with Slack's Real-time Search API (`assistant.search.context`), surfacing similar past cases with permalinks — including "what worked" language from teammates.
+3. **Searches the team's own anonymised debrief history** with Slack's Real-time Search API (`assistant.search.context`), surfacing similar past cases *and shared training-material files* with permalinks — including "what worked" language from teammates.
 4. **Calls an MCP server** for curated, country-aware helplines and a step-by-step response protocol.
 5. Replies with one calm Block Kit message: suggested phrasing, past cases, resources, protocol — plus a footer showing exactly what was redacted and where search was allowed to look.
 
-Every reply is interactive, not read-only: **✅ Helped / ❌ Didn't land** buttons feed a live effectiveness score, and **🚨 Escalate to supervisor** posts a real-time alert with a direct thread link into a shift-lead channel — closing the loop between ambient AI guidance and an actual human handoff. A Home-tab "Shift Dashboard" shows sessions supported, live effectiveness %, and escalation count this shift (in memory only), plus a one-click modal listing every protocol. Time-critical classifications pin a safety-first escalation note to the top of the reply.
+Every reply is interactive, not read-only: **✅ Helped / ❌ Didn't land** buttons feed a live effectiveness score, and **🚨 Escalate to supervisor** posts a real-time alert with a direct thread link into a shift-lead channel — closing the loop between ambient AI guidance and an actual human handoff. Time-critical classifications go further: the agent **escalates to the supervisor channel automatically**, with no click required, the moment its deterministic classifier detects imminent risk (plan, means, or timeline) — the volunteer is told this happened right in the reply. A Home-tab "Shift Dashboard" shows sessions supported, live effectiveness %, and escalation count this shift (in memory only), plus a one-click modal listing every protocol.
 
 ### How we built it
 - **Node.js + Bolt for JavaScript**, Socket Mode; the `Assistant` class powers the private thread experience (suggested prompts, status, titles).
@@ -46,6 +46,9 @@ Slack's history is an untapped clinical-adjacent knowledge base. Retrieval over 
 ### What's next
 Use the live "Helped / Didn't land" feedback signal to actually re-rank which past cases and phrases surface first, not just display a shift-level score; multi-supervisor escalation routing (route by crisis type, not one fixed channel); partnerships with real helpline networks (iCall, Crisis Text Line) to replace the curated dataset with their vetted resource databases via the same MCP interface.
 
+### Deployment
+Runs as an always-on Railway worker for the duration of the judging period (Socket Mode, no public URL needed), not just a local process — judges can test it any time through Aug 6.
+
 ---
 
 ## Impact statement (Agent for Good field)
@@ -59,8 +62,8 @@ Crisis-line capacity is bottlenecked by volunteer confidence and burnout, not de
 1. Sandbox: [PASTE SANDBOX URL]. Test access has been granted to slackhack@salesforce.com and testing@devpost.com.
 2. In `#debriefs-anon`, mention the bot with a debrief, e.g.:
    `@Crisis Companion Debrief: caller expressing hopelessness, talked about ending things tonight, has pills at home.`
-   → Expect: time-critical suicidal-ideation reply with safety note, 3 vetted phrases, similar past cases (permalinks into this channel's anonymised history via assistant.search.context), helplines + protocol via MCP, a 🔒 privacy footer, and ✅/❌/🚨 action buttons.
-3. Click **🚨 Escalate to supervisor** on that reply → a live alert with a "Join thread" link appears in `#crisis-resources`.
+   → Expect: time-critical suicidal-ideation reply with safety note, 3 vetted phrases, similar past cases (permalinks into this channel's anonymised history via assistant.search.context, across messages and files), helplines + protocol via MCP, a 🔒 privacy footer, and ✅/❌/🚨 action buttons. Because this is time-critical, it also **auto-escalates with no click** — check `#crisis-resources` for the alert, already posted.
+3. Send a non-time-critical debrief and click **🚨 Escalate to supervisor** on that reply yourself → a live alert with a "Join thread" link appears in `#crisis-resources`, same as the automatic one but volunteer-initiated.
 4. Click **✅ Helped** on a reply, then open the Home tab (click the bot's name → Home) → *Effectiveness this shift* and *Escalations* reflect it, and **📋 View all protocols** opens a modal with all six.
 5. Include a fake name/phone in a mention (e.g. "caller named Priya, phone +91 98765 43210") → the footer reports PII redactions applied before search.
 6. Mention the bot in any other channel → it declines (channel allow-list).

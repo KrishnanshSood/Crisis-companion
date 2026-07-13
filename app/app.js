@@ -64,7 +64,8 @@ const assistant = new Assistant({
         client,
         text: message.text,
         actionToken: extractActionToken(message),
-        userId: message.user
+        userId: message.user,
+        sourceChannel: message.channel
       });
       await setTitle(classification.label);
       await say({ blocks, text });
@@ -88,7 +89,8 @@ app.message(async ({ message, client, say, logger }) => {
       client,
       text: message.text,
       actionToken: extractActionToken(message),
-      userId: message.user
+      userId: message.user,
+      sourceChannel: message.channel
     });
     await say({ blocks, text });
   } catch (err) {
@@ -117,7 +119,9 @@ app.event('app_mention', async ({ event, client, say, logger }) => {
       client,
       text: event.text.replace(/<@[UW][A-Z0-9]+>/g, '').trim(),
       actionToken: extractActionToken(event),
-      userId: event.user
+      userId: event.user,
+      sourceChannel: event.channel,
+      sourceTs: event.ts
     });
     await say({ thread_ts: threadTs, blocks, text });
   } catch (err) {
